@@ -1,17 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { NavegadorPrincipal } from './src/navegacao/NavegadorPrincipal';
 
 export default function Aplicativo() {
   return (
-    <View style={estilos.container}>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavegadorPrincipal />
+    </GestureHandlerRootView>
   );
 }
-
-const estilos = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
