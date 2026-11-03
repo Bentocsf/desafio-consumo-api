@@ -1,10 +1,18 @@
-import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { cores } from '../estilos/cores';
 
 export function SeletorMoeda({ rotulo, valor, moedas, aoSelecionar }) {
   const [aberto, setAberto] = useState(false);
+  const [busca, setBusca] = useState('');
   const moedaSelecionada = moedas.find((moeda) => moeda.codigo === valor);
+  const moedasFiltradas = useMemo(() => {
+    const termo = busca.trim().toLocaleLowerCase();
+    if (!termo) return moedas;
+    return moedas.filter((moeda) =>
+      moeda.codigo.toLocaleLowerCase().includes(termo) || moeda.nome.toLocaleLowerCase().includes(termo),
+    );
+  }, [busca, moedas]);
 
   return (
     <View style={estilos.container}>
@@ -16,27 +24,36 @@ export function SeletorMoeda({ rotulo, valor, moedas, aoSelecionar }) {
         style={estilos.selecao}
       >
         <Text style={estilos.valor}>
-          {moedaSelecionada.codigo} — {moedaSelecionada.nome}
+          {moedaSelecionada ? `${moedaSelecionada.codigo} — ${moedaSelecionada.nome}` : 'Selecione uma moeda'}
         </Text>
         <Text style={estilos.seta}>{aberto ? '⌃' : '⌄'}</Text>
       </Pressable>
       {aberto && (
         <View style={estilos.opcoes}>
-          {moedas.map((moeda) => (
-            <Pressable
-              key={moeda.codigo}
-              accessibilityRole="button"
-              onPress={() => {
-                aoSelecionar(moeda.codigo);
-                setAberto(false);
-              }}
-              style={estilos.opcao}
-            >
-              <Text style={estilos.textoOpcao}>
-                {moeda.codigo} — {moeda.nome}
-              </Text>
-            </Pressable>
-          ))}
+          <TextInput
+            accessibilityLabel={`Buscar ${rotulo.toLocaleLowerCase()}`}
+            onChangeText={setBusca}
+            placeholder="Buscar por código ou nome"
+            placeholderTextColor={cores.cinzaTexto}
+            style={estilos.busca}
+            value={busca}
+          />
+          <ScrollView nestedScrollEnabled keyboardShouldPersistTaps="handled" style={estilos.listaOpcoes}>
+            {moedasFiltradas.length ? moedasFiltradas.map((moeda) => (
+              <Pressable
+                key={moeda.codigo}
+                accessibilityRole="button"
+                onPress={() => {
+                  aoSelecionar(moeda.codigo);
+                  setAberto(false);
+                  setBusca('');
+                }}
+                style={estilos.opcao}
+              >
+                <Text style={estilos.textoOpcao}>{moeda.codigo} — {moeda.nome}</Text>
+              </Pressable>
+            )) : <Text style={estilos.semResultados}>Nenhuma moeda encontrada.</Text>}
+          </ScrollView>
         </View>
       )}
     </View>
@@ -76,6 +93,16 @@ const estilos = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: cores.branco,
   },
+  busca: {
+    minHeight: 44,
+    borderBottomWidth: 1,
+    borderBottomColor: cores.cinzaBorda,
+    color: cores.preto,
+    paddingHorizontal: 12,
+  },
+  listaOpcoes: {
+    maxHeight: 220,
+  },
   opcao: {
     minHeight: 44,
     justifyContent: 'center',
@@ -84,5 +111,9 @@ const estilos = StyleSheet.create({
   textoOpcao: {
     color: cores.preto,
     fontSize: 15,
+  },
+  semResultados: {
+    color: cores.cinzaTexto,
+    padding: 12,
   },
 });
