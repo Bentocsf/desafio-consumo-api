@@ -7,15 +7,15 @@ export function TelaSobre() {
       <Text style={estilos.nomeAplicativo}>Conversor de Moedas</Text>
       <Text style={estilos.tituloSecao}>Objetivo</Text>
       <Text style={estilos.paragrafo}>
-        O aplicativo foi desenvolvido para consultar moedas e facilitar a conversão de valores.
+        O aplicativo permite consultar moedas, salvar favoritas e converter valores.
       </Text>
       <Text style={estilos.tituloSecao}>Como funciona</Text>
       <Text style={estilos.paragrafo}>
-        Será possível escolher as moedas de origem e destino, informar um valor e consultar o resultado.
+        Escolha as moedas de origem e destino, informe um valor e consulte a taxa e o resultado retornados pela API.
       </Text>
       <Text style={estilos.tituloSecao}>Fonte dos dados</Text>
       <Text style={estilos.paragrafo}>
-        As cotações serão obtidas pela ExchangeRate-API.
+        A lista e as cotações são obtidas pela ExchangeRate-API.
       </Text>
     </ScrollView>
   );
