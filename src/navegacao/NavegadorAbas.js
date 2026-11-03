@@ -7,7 +7,17 @@ const Abas = createBottomTabNavigator();
 
 export function NavegadorAbas() {
   return (
-    <Abas.Navigator>
+    <Abas.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#17324D',
+        tabBarInactiveTintColor: '#66717D',
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          borderTopColor: '#D9DEE5',
+        },
+      }}
+    >
       <Abas.Screen name="Moedas" component={TelaMoedas} />
       <Abas.Screen name="Favoritas" component={TelaFavoritas} />
       <Abas.Screen name="Converter" component={TelaConverter} />
