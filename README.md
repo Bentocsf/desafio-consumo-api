@@ -8,6 +8,12 @@ Aplicativo acadêmico criado com React Native, Expo e JavaScript.
 npx expo start
 ```
 
+## Configurar a API
+
+Copie `.env.example` para `.env` e configure `EXPO_PUBLIC_EXCHANGE_RATE_API_KEY`
+com sua chave da ExchangeRate-API. O arquivo `.env` é local e ignorado pelo Git.
+Variáveis com prefixo `EXPO_PUBLIC_` ficam visíveis no aplicativo compilado.
+
 ## Organização
 
 - `App.js`: componente raiz e contêiner de gestos.
@@ -19,5 +25,6 @@ npx expo start
 - `src/componentes/`: linhas, listas e seletores reutilizáveis.
 - `src/dados/`: dados temporários das moedas.
 - `src/estilos/`: cores compartilhadas da interface.
+- `src/servicos/`: requisições para a ExchangeRate-API.
 
-As cotações, os favoritos e a conversão real ainda não estão implementados.
+Os favoritos e a conversão real ainda não estão implementados.
