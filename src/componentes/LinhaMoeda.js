@@ -1,16 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { cores } from '../estilos/cores';
 
-export function LinhaMoeda({ codigo, nome }) {
+export function LinhaMoeda({
+  codigo,
+  nome,
+  favoritada,
+  desabilitado,
+  aoPressionarFavorito,
+}) {
   return (
     <View style={estilos.linha}>
       <View style={estilos.informacoes}>
         <Text style={estilos.codigo}>{codigo}</Text>
         <Text style={estilos.nome}>{nome}</Text>
       </View>
-      <Text style={estilos.espacoFavorito} accessibilityLabel="Espaço para favoritar">
-        ☆
-      </Text>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={
+          favoritada
+            ? `Remover ${codigo} dos favoritos`
+            : `Adicionar ${codigo} aos favoritos`
+        }
+        accessibilityState={{ selected: favoritada, disabled: desabilitado }}
+        disabled={desabilitado}
+        onPress={aoPressionarFavorito}
+        hitSlop={8}
+        style={estilos.botaoFavorito}
+      >
+        <Text style={[estilos.iconeFavorito, favoritada && estilos.iconeFavoritoAtivo]}>
+          {favoritada ? '★' : '☆'}
+        </Text>
+      </Pressable>
     </View>
   );
 }
@@ -37,9 +57,17 @@ const estilos = StyleSheet.create({
     color: cores.cinzaTexto,
     fontSize: 14,
   },
-  espacoFavorito: {
+  botaoFavorito: {
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconeFavorito: {
     color: cores.cinzaTexto,
-    fontSize: 24,
-    paddingHorizontal: 8,
+    fontSize: 26,
+  },
+  iconeFavoritoAtivo: {
+    color: cores.azulEscuro,
   },
 });

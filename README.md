@@ -23,8 +23,10 @@ Variáveis com prefixo `EXPO_PUBLIC_` ficam visíveis no aplicativo compilado.
 - `src/navegacao/`: Drawer principal e abas inferiores.
 - `src/telas/`: as cinco telas do aplicativo.
 - `src/componentes/`: linhas, listas e seletores reutilizáveis.
+- `src/contextos/`: estado compartilhado dos favoritos entre as abas.
 - `src/dados/`: dados temporários das moedas.
 - `src/estilos/`: cores compartilhadas da interface.
 - `src/servicos/`: requisições para a ExchangeRate-API.
+- `src/servicos/servicoFavoritas.js`: leitura e gravação dos favoritos no AsyncStorage.
 
-Os favoritos e a conversão real ainda não estão implementados.
+Os favoritos ficam salvos localmente no dispositivo. A conversão real ainda não está implementada.
