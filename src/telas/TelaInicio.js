@@ -1,24 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 
 export function TelaInicio() {
   const navegacao = useNavigation();
 
   return (
-    <View style={estilos.container}>
-      <Text style={estilos.titulo}>Conversor de Moedas</Text>
-      <Text style={estilos.descricao}>
-        Consulte moedas e converta valores entre diferentes moedas em um só lugar.
-      </Text>
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => navegacao.navigate('Moedas')}
-        style={estilos.botao}
-      >
-        <Text style={estilos.textoBotao}>Acessar moedas</Text>
-      </Pressable>
-    </View>
+    <AreaSegura bordas={['left', 'right', 'bottom']}>
+      <View style={estilos.container}>
+        <Text style={estilos.titulo}>Conversor de Moedas</Text>
+        <Text style={estilos.descricao}>
+          Consulte moedas e converta valores entre diferentes moedas em um só lugar.
+        </Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => navegacao.navigate('Moedas')}
+          style={estilos.botao}
+        >
+          <Text style={estilos.textoBotao}>Acessar moedas</Text>
+        </Pressable>
+      </View>
+    </AreaSegura>
   );
 }
 

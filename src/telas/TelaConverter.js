@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SeletorMoeda } from '../componentes/SeletorMoeda';
+import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 import { buscarMoedas, converterParMoedas, validarValorConversao } from '../servicos/servicoMoedas';
 
@@ -72,68 +73,70 @@ export function TelaConverter() {
   };
 
   return (
-    <ScrollView contentContainerStyle={estilos.container} keyboardShouldPersistTaps="handled">
-      <Text style={estilos.titulo}>Converter valores</Text>
-      <View style={estilos.formulario}>
-        <View style={estilos.campo}>
-          <Text style={estilos.rotulo}>Valor</Text>
-          <TextInput
-            accessibilityLabel="Valor para conversão"
-            keyboardType="decimal-pad"
-            onChangeText={(texto) => {
-              setValor(texto);
-              setResultado(null);
-            }}
-            placeholder="Ex.: 100,00"
-            placeholderTextColor={cores.cinzaTexto}
-            style={estilos.entrada}
-            value={valor}
-          />
-        </View>
-
-        {carregandoMoedas ? (
-          <View style={estilos.estado}><ActivityIndicator color={cores.azulEscuro} /><Text style={estilos.textoAuxiliar}>Carregando moedas...</Text></View>
-        ) : moedas.length ? (
-          <>
-            <SeletorMoeda rotulo="Moeda de origem" valor={moedaOrigem} moedas={moedas} aoSelecionar={(codigo) => { setMoedaOrigem(codigo); setResultado(null); }} />
-            <Pressable accessibilityRole="button" onPress={inverterMoedas} style={estilos.botaoInverter}>
-              <Text style={estilos.textoInverter}>Inverter moedas</Text>
-            </Pressable>
-            <SeletorMoeda rotulo="Moeda de destino" valor={moedaDestino} moedas={moedas} aoSelecionar={(codigo) => { setMoedaDestino(codigo); setResultado(null); }} />
-          </>
-        ) : (
-          <View style={estilos.estado}>
-            <Text style={estilos.mensagemErro}>{erro || 'Nenhuma moeda disponível.'}</Text>
-            <Pressable accessibilityRole="button" onPress={carregarMoedas} style={estilos.botaoTentarNovamente}>
-              <Text style={estilos.textoTentarNovamente}>Tentar novamente</Text>
-            </Pressable>
+    <AreaSegura>
+      <ScrollView contentContainerStyle={estilos.container} keyboardShouldPersistTaps="handled">
+        <Text style={estilos.titulo}>Converter valores</Text>
+        <View style={estilos.formulario}>
+          <View style={estilos.campo}>
+            <Text style={estilos.rotulo}>Valor</Text>
+            <TextInput
+              accessibilityLabel="Valor para conversão"
+              keyboardType="decimal-pad"
+              onChangeText={(texto) => {
+                setValor(texto);
+                setResultado(null);
+              }}
+              placeholder="Ex.: 100,00"
+              placeholderTextColor={cores.cinzaTexto}
+              style={estilos.entrada}
+              value={valor}
+            />
           </View>
-        )}
 
-        <Pressable
-          accessibilityRole="button"
-          accessibilityState={{ disabled: carregandoConversao || carregandoMoedas, busy: carregandoConversao }}
-          disabled={carregandoConversao || carregandoMoedas || !moedas.length}
-          onPress={realizarConversao}
-          style={[estilos.botao, (carregandoConversao || carregandoMoedas || !moedas.length) && estilos.botaoDesabilitado]}
-        >
-          {carregandoConversao ? <ActivityIndicator color={cores.branco} /> : <Text style={estilos.textoBotao}>Converter</Text>}
-        </Pressable>
-
-        {(erro && moedas.length > 0) ? <Text accessibilityLiveRegion="polite" style={estilos.mensagemErro}>{erro}</Text> : null}
-
-        <View accessibilityLiveRegion="polite" style={estilos.resultado}>
-          <Text style={estilos.rotulo}>Resultado</Text>
-          {resultado ? (
-            <View style={estilos.detalhesResultado}>
-              <Text style={estilos.textoResultado}>{formatarValor(resultado.valorOriginal)} {resultado.moedaOrigem} =</Text>
-              <Text style={estilos.valorConvertido}>{formatarValor(resultado.valorConvertido)} {resultado.moedaDestino}</Text>
-              <Text style={estilos.textoAuxiliar}>Taxa: 1 {resultado.moedaOrigem} = {formatarValor(resultado.taxaConversao)} {resultado.moedaDestino}</Text>
+          {carregandoMoedas ? (
+            <View style={estilos.estado}><ActivityIndicator color={cores.azulEscuro} /><Text style={estilos.textoAuxiliar}>Carregando moedas...</Text></View>
+          ) : moedas.length ? (
+            <>
+              <SeletorMoeda rotulo="Moeda de origem" valor={moedaOrigem} moedas={moedas} aoSelecionar={(codigo) => { setMoedaOrigem(codigo); setResultado(null); }} />
+              <Pressable accessibilityRole="button" onPress={inverterMoedas} style={estilos.botaoInverter}>
+                <Text style={estilos.textoInverter}>Inverter moedas</Text>
+              </Pressable>
+              <SeletorMoeda rotulo="Moeda de destino" valor={moedaDestino} moedas={moedas} aoSelecionar={(codigo) => { setMoedaDestino(codigo); setResultado(null); }} />
+            </>
+          ) : (
+            <View style={estilos.estado}>
+              <Text style={estilos.mensagemErro}>{erro || 'Nenhuma moeda disponível.'}</Text>
+              <Pressable accessibilityRole="button" onPress={carregarMoedas} style={estilos.botaoTentarNovamente}>
+                <Text style={estilos.textoTentarNovamente}>Tentar novamente</Text>
+              </Pressable>
             </View>
-          ) : <Text style={estilos.textoResultado}>O resultado será exibido aqui.</Text>}
+          )}
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ disabled: carregandoConversao || carregandoMoedas, busy: carregandoConversao }}
+            disabled={carregandoConversao || carregandoMoedas || !moedas.length}
+            onPress={realizarConversao}
+            style={[estilos.botao, (carregandoConversao || carregandoMoedas || !moedas.length) && estilos.botaoDesabilitado]}
+          >
+            {carregandoConversao ? <ActivityIndicator color={cores.branco} /> : <Text style={estilos.textoBotao}>Converter</Text>}
+          </Pressable>
+
+          {(erro && moedas.length > 0) ? <Text accessibilityLiveRegion="polite" style={estilos.mensagemErro}>{erro}</Text> : null}
+
+          <View accessibilityLiveRegion="polite" style={estilos.resultado}>
+            <Text style={estilos.rotulo}>Resultado</Text>
+            {resultado ? (
+              <View style={estilos.detalhesResultado}>
+                <Text style={estilos.textoResultado}>{formatarValor(resultado.valorOriginal)} {resultado.moedaOrigem} =</Text>
+                <Text style={estilos.valorConvertido}>{formatarValor(resultado.valorConvertido)} {resultado.moedaDestino}</Text>
+                <Text style={estilos.textoAuxiliar}>Taxa: 1 {resultado.moedaOrigem} = {formatarValor(resultado.taxaConversao)} {resultado.moedaDestino}</Text>
+              </View>
+            ) : <Text style={estilos.textoResultado}>O resultado será exibido aqui.</Text>}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </AreaSegura>
   );
 }
 

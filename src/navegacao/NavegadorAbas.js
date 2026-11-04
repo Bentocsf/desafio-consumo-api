@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { IconeAba } from '../componentes/IconeAba';
 import { TelaConverter } from '../telas/TelaConverter';
 import { TelaFavoritas } from '../telas/TelaFavoritas';
 import { TelaMoedas } from '../telas/TelaMoedas';
@@ -18,9 +19,21 @@ export function NavegadorAbas() {
         },
       }}
     >
-      <Abas.Screen name="Moedas" component={TelaMoedas} />
-      <Abas.Screen name="Favoritas" component={TelaFavoritas} />
-      <Abas.Screen name="Converter" component={TelaConverter} />
+      <Abas.Screen
+        name="Moedas"
+        component={TelaMoedas}
+        options={{ tabBarIcon: ({ color, size, focused }) => <IconeAba nome="moedas" cor={color} tamanho={size} selecionada={focused} /> }}
+      />
+      <Abas.Screen
+        name="Favoritas"
+        component={TelaFavoritas}
+        options={{ tabBarIcon: ({ color, size, focused }) => <IconeAba nome="favoritas" cor={color} tamanho={size} selecionada={focused} /> }}
+      />
+      <Abas.Screen
+        name="Converter"
+        component={TelaConverter}
+        options={{ tabBarIcon: ({ color, size, focused }) => <IconeAba nome="converter" cor={color} tamanho={size} selecionada={focused} /> }}
+      />
     </Abas.Navigator>
   );
 }

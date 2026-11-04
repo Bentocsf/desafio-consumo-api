@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListaMoedas } from '../componentes/ListaMoedas';
+import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 import { buscarMoedas } from '../servicos/servicoMoedas';
 
@@ -29,25 +30,27 @@ export function TelaMoedas() {
   }, [carregarMoedas]);
 
   return (
-    <ScrollView contentContainerStyle={estilos.container}>
-      <Text style={estilos.titulo}>Moedas disponíveis</Text>
-      <Text style={estilos.descricao}>Códigos e nomes de moedas disponíveis.</Text>
-      {carregando ? (
-        <View style={estilos.estado}>
-          <ActivityIndicator color={cores.azulEscuro} />
-          <Text style={estilos.mensagem}>Carregando moedas...</Text>
-        </View>
-      ) : erro ? (
-        <View style={estilos.estado}>
-          <Text style={estilos.mensagemErro}>{erro}</Text>
-          <Pressable accessibilityRole="button" onPress={carregarMoedas} style={estilos.botaoTentarNovamente}>
-            <Text style={estilos.textoBotao}>Tentar novamente</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <ListaMoedas moedas={moedas} mensagemVazia="Nenhuma moeda foi encontrada." />
-      )}
-    </ScrollView>
+    <AreaSegura>
+      <ScrollView contentContainerStyle={estilos.container}>
+        <Text style={estilos.titulo}>Moedas disponíveis</Text>
+        <Text style={estilos.descricao}>Códigos e nomes de moedas disponíveis.</Text>
+        {carregando ? (
+          <View style={estilos.estado}>
+            <ActivityIndicator color={cores.azulEscuro} />
+            <Text style={estilos.mensagem}>Carregando moedas...</Text>
+          </View>
+        ) : erro ? (
+          <View style={estilos.estado}>
+            <Text style={estilos.mensagemErro}>{erro}</Text>
+            <Pressable accessibilityRole="button" onPress={carregarMoedas} style={estilos.botaoTentarNovamente}>
+              <Text style={estilos.textoBotao}>Tentar novamente</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <ListaMoedas moedas={moedas} mensagemVazia="Nenhuma moeda foi encontrada." />
+        )}
+      </ScrollView>
+    </AreaSegura>
   );
 }
 

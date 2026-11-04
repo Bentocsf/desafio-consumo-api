@@ -47,7 +47,7 @@ Aplicativo acadêmico para consultar moedas, salvar moedas favoritas no disposit
 - `App.js` e `index.js`: inicialização do aplicativo.
 - `src/navegacao/`: Drawer e Bottom Tabs.
 - `src/telas/`: telas Início, Sobre, Moedas, Favoritas e Converter.
-- `src/componentes/`: lista, linha e seletor de moedas reutilizáveis.
+- `src/componentes/`: área segura, ícones das abas, lista, linha e seletor de moedas reutilizáveis.
 - `src/contextos/ContextoFavoritas.js`: estado compartilhado dos favoritos.
 - `src/servicos/servicoFavoritas.js`: persistência dos favoritos no AsyncStorage.
 - `src/servicos/servicoMoedas.js`: listagem e conversão usando a ExchangeRate-API.
