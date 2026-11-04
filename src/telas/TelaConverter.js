@@ -5,12 +5,14 @@ import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 import { buscarMoedas, converterParMoedas, validarValorConversao } from '../servicos/servicoMoedas';
 
+// Mostro todos os números no formato brasileiro, com três casas decimais.
 const formatarValor = (valor) => valor.toLocaleString('pt-BR', {
   minimumFractionDigits: 3,
   maximumFractionDigits: 3,
 });
 
 export function TelaConverter() {
+  // Esses estados guardam o que a pessoa escolheu e o que a API respondeu.
   const [valor, setValor] = useState('');
   const [moedaOrigem, setMoedaOrigem] = useState('USD');
   const [moedaDestino, setMoedaDestino] = useState('BRL');
@@ -34,10 +36,12 @@ export function TelaConverter() {
   }, []);
 
   useEffect(() => {
+    // A tela precisa da lista para preencher os seletores de origem e destino.
     carregarMoedas();
   }, [carregarMoedas]);
 
   const realizarConversao = async () => {
+    // Limpo o resultado anterior para não confundir com a nova tentativa.
     setResultado(null);
     setErro('');
 
@@ -56,6 +60,7 @@ export function TelaConverter() {
 
     setCarregandoConversao(true);
     try {
+      // O serviço conversa com a API e devolve os dados já organizados.
       const conversao = await converterParMoedas(moedaOrigem, moedaDestino, valorNumerico);
       setResultado(conversao);
     } catch (erroConsulta) {
@@ -66,6 +71,7 @@ export function TelaConverter() {
   };
 
   const inverterMoedas = () => {
+    // Troco os dois códigos de lugar e apago mensagens da conversão anterior.
     setMoedaOrigem(moedaDestino);
     setMoedaDestino(moedaOrigem);
     setResultado(null);
@@ -93,6 +99,7 @@ export function TelaConverter() {
             />
           </View>
 
+          {/* Enquanto a API responde, evito mostrar seletores ainda vazios. */}
           {carregandoMoedas ? (
             <View style={estilos.estado}><ActivityIndicator color={cores.azulEscuro} /><Text style={estilos.textoAuxiliar}>Carregando moedas...</Text></View>
           ) : moedas.length ? (
@@ -124,6 +131,7 @@ export function TelaConverter() {
 
           {(erro && moedas.length > 0) ? <Text accessibilityLiveRegion="polite" style={estilos.mensagemErro}>{erro}</Text> : null}
 
+          {/* A caixa é atualizada quando chega uma resposta da conversão. */}
           <View accessibilityLiveRegion="polite" style={estilos.resultado}>
             <Text style={estilos.rotulo}>Resultado</Text>
             {resultado ? (
@@ -140,6 +148,7 @@ export function TelaConverter() {
   );
 }
 
+// Organizo os estilos da tela por função: formulário, botões e resultado.
 const estilos = StyleSheet.create({
   container: { flexGrow: 1, padding: 20, backgroundColor: cores.branco },
   titulo: { color: cores.azulEscuro, fontSize: 22, fontWeight: '700', marginBottom: 20 },

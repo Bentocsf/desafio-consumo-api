@@ -3,6 +3,7 @@ import { carregarMoedasFavoritas, salvarMoedasFavoritas } from '../servicos/serv
 
 const ContextoFavoritas = createContext(null);
 
+// O provedor deixa a mesma lista de favoritos acessível em todas as telas.
 export function ProvedorFavoritas({ children }) {
   const [moedasFavoritas, setMoedasFavoritas] = useState([]);
   const [carregandoFavoritas, setCarregandoFavoritas] = useState(true);
@@ -16,11 +17,13 @@ export function ProvedorFavoritas({ children }) {
   }, []);
 
   async function alternarMoedaFavorita(moeda) {
+    // Se já estiver salva, tiro da lista; caso contrário, acrescento.
     const jaFavorita = moedasFavoritas.some((item) => item.codigo === moeda.codigo);
     const atualizadas = jaFavorita
       ? moedasFavoritas.filter((item) => item.codigo !== moeda.codigo)
       : [...moedasFavoritas, moeda];
 
+    // Só atualizo a tela depois que o salvamento no aparelho termina.
     await salvarMoedasFavoritas(atualizadas);
     setMoedasFavoritas(atualizadas);
   }
@@ -35,6 +38,7 @@ export function ProvedorFavoritas({ children }) {
 }
 
 export function useFavoritas() {
+  // Esse atalho evita importar e consultar o contexto manualmente em cada tela.
   const contexto = useContext(ContextoFavoritas);
   if (!contexto) throw new Error('Use os favoritos dentro do ProvedorFavoritas.');
   return contexto;

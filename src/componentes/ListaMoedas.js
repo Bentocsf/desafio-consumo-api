@@ -4,6 +4,7 @@ import { useFavoritas } from '../contextos/ContextoFavoritas';
 import { cores } from '../estilos/cores';
 import { LinhaMoeda } from './LinhaMoeda';
 
+// Essa lista serve tanto para todas as moedas quanto para as favoritas.
 export function ListaMoedas({ moedas, mensagemVazia }) {
   const {
     moedasFavoritas,
@@ -12,12 +13,14 @@ export function ListaMoedas({ moedas, mensagemVazia }) {
   } = useFavoritas();
 
   const aoPressionarFavorito = useCallback((moeda) => {
+    // Se o celular não conseguir salvar, aviso a pessoa em vez de falhar em silêncio.
     alternarMoedaFavorita(moeda).catch(() => {
       Alert.alert('Não foi possível atualizar os favoritos', 'Tente novamente.');
     });
   }, [alternarMoedaFavorita]);
 
   if (moedas.length === 0) {
+    // A mensagem muda conforme a lista está sendo usada.
     return <Text style={estilos.mensagemVazia}>{mensagemVazia}</Text>;
   }
 
@@ -37,6 +40,7 @@ export function ListaMoedas({ moedas, mensagemVazia }) {
   );
 }
 
+// A lista vazia continua alinhada e legível mesmo sem resultados.
 const estilos = StyleSheet.create({
   mensagemVazia: {
     color: cores.cinzaTexto,

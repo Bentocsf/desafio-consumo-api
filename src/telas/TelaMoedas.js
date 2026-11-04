@@ -5,11 +5,13 @@ import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 import { buscarMoedas } from '../servicos/servicoMoedas';
 
+// Aqui consulto a API e apresento o resultado com a lista reutilizável.
 export function TelaMoedas() {
   const [moedas, setMoedas] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
 
+  // Uso a mesma função na abertura da tela e no botão de tentar de novo.
   async function carregarMoedas() {
     setCarregando(true);
     setErro('');
@@ -26,6 +28,7 @@ export function TelaMoedas() {
   }
 
   useEffect(() => {
+    // A lista é buscada quando essa tela aparece pela primeira vez.
     carregarMoedas();
   }, []);
 
@@ -34,6 +37,7 @@ export function TelaMoedas() {
       <ScrollView contentContainerStyle={estilos.container}>
         <Text style={estilos.titulo}>Moedas disponíveis</Text>
         <Text style={estilos.descricao}>Códigos e nomes de moedas disponíveis.</Text>
+        {/* A tela mostra carregamento, erro ou lista, conforme o que aconteceu. */}
         {carregando ? (
           <View style={estilos.estado}>
             <ActivityIndicator color={cores.azulEscuro} />
@@ -54,6 +58,7 @@ export function TelaMoedas() {
   );
 }
 
+// A tela usa espaçamentos simples para funcionar bem em diferentes celulares.
 const estilos = StyleSheet.create({
   container: {
     flexGrow: 1,

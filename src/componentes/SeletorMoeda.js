@@ -2,10 +2,13 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { cores } from '../estilos/cores';
 
+// Criei um seletor com busca porque a lista de moedas é bem comprida.
 export function SeletorMoeda({ rotulo, valor, moedas, aoSelecionar }) {
   const [aberto, setAberto] = useState(false);
   const [busca, setBusca] = useState('');
+  // Encontro o nome completo para mostrar algo mais amigável que só o código.
   const moedaSelecionada = moedas.find((moeda) => moeda.codigo === valor);
+  // A lista é filtrada pelo código ou pelo nome digitado.
   const moedasFiltradas = useMemo(() => {
     const termo = busca.trim().toLocaleLowerCase();
     if (!termo) return moedas;
@@ -60,6 +63,7 @@ export function SeletorMoeda({ rotulo, valor, moedas, aoSelecionar }) {
   );
 }
 
+// Estilos do campo e da lista suspensa de opções.
 const estilos = StyleSheet.create({
   container: {
     gap: 7,

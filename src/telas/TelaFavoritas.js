@@ -4,6 +4,7 @@ import { AreaSegura } from '../componentes/AreaSegura';
 import { useFavoritas } from '../contextos/ContextoFavoritas';
 import { cores } from '../estilos/cores';
 
+// Essa tela só precisa ler o contexto: a lista e os botões ficam reutilizados.
 export function TelaFavoritas() {
   const { moedasFavoritas, carregandoFavoritas } = useFavoritas();
 
@@ -11,6 +12,7 @@ export function TelaFavoritas() {
     <AreaSegura>
       <ScrollView contentContainerStyle={estilos.container}>
         <Text style={estilos.titulo}>Moedas favoritas</Text>
+        {/* Enquanto o celular lê o armazenamento, mostro um estado de carregamento. */}
         {carregandoFavoritas ? (
           <View style={estilos.estado}>
             <ActivityIndicator color={cores.azulEscuro} />
@@ -27,6 +29,7 @@ export function TelaFavoritas() {
   );
 }
 
+// Uso os mesmos espaçamentos da tela de moedas para manter o padrão visual.
 const estilos = StyleSheet.create({
   container: {
     flexGrow: 1,

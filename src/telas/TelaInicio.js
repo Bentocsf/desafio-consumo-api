@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 
+// É a primeira tela e também dá um atalho para a parte principal do app.
 export function TelaInicio() {
   const navegacao = useNavigation();
 
@@ -13,6 +14,7 @@ export function TelaInicio() {
         <Text style={estilos.descricao}>
           Consulte moedas e converta valores entre diferentes moedas em um só lugar.
         </Text>
+        {/* O nome corresponde à tela do menu que contém as abas. */}
         <Pressable
           accessibilityRole="button"
           onPress={() => navegacao.navigate('Moedas')}
@@ -25,6 +27,7 @@ export function TelaInicio() {
   );
 }
 
+// Deixo o conteúdo centralizado para a primeira tela ficar mais acolhedora.
 const estilos = StyleSheet.create({
   container: {
     flex: 1,

@@ -6,9 +6,11 @@ import { TelaSobre } from '../telas/TelaSobre';
 
 const MenuLateral = createDrawerNavigator();
 
+// Esse menu leva às telas principais do trabalho.
 export function NavegadorPrincipal() {
   return (
     <NavigationContainer>
+      {/* Deixo o visual do cabeçalho e do menu consistente entre as telas. */}
       <MenuLateral.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: '#17324D' },

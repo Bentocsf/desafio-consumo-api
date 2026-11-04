@@ -6,6 +6,7 @@ import { TelaMoedas } from '../telas/TelaMoedas';
 
 const Abas = createBottomTabNavigator();
 
+// Dentro da seção Moedas, uso abas para deixar as três funções à mão.
 export function NavegadorAbas() {
   return (
     <Abas.Navigator
@@ -19,6 +20,7 @@ export function NavegadorAbas() {
         },
       }}
     >
+      {/* O componente de ícone recebe automaticamente as cores da aba. */}
       <Abas.Screen
         name="Moedas"
         component={TelaMoedas}

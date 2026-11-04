@@ -1,3 +1,4 @@
+// Deixo as cores num lugar só para manter a mesma identidade nas telas.
 export const cores = {
   azulEscuro: '#17324D',
   azulClaro: '#EAF0F5',

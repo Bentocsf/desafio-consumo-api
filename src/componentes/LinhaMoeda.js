@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { cores } from '../estilos/cores';
 
+// Uma linha mostra os dados da moeda e deixa favoritar com um toque.
 export function LinhaMoeda({
   codigo,
   nome,
@@ -14,6 +15,7 @@ export function LinhaMoeda({
         <Text style={estilos.codigo}>{codigo}</Text>
         <Text style={estilos.nome}>{nome}</Text>
       </View>
+      {/* O rótulo acessível explica a ação sem depender só do desenho da estrela. */}
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={
@@ -35,6 +37,7 @@ export function LinhaMoeda({
   );
 }
 
+// Cada linha tem espaço suficiente para tocar na estrela com facilidade.
 const estilos = StyleSheet.create({
   linha: {
     minHeight: 68,

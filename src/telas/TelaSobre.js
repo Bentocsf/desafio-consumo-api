@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 import { AreaSegura } from '../componentes/AreaSegura';
 import { cores } from '../estilos/cores';
 
+// Deixei aqui um resumo do objetivo e da fonte dos dados do projeto.
 export function TelaSobre() {
   return (
     <AreaSegura bordas={['left', 'right', 'bottom']}>
@@ -24,6 +25,7 @@ export function TelaSobre() {
   );
 }
 
+// Os títulos e parágrafos têm hierarquia visual para facilitar a leitura.
 const estilos = StyleSheet.create({
   container: {
     flexGrow: 1,

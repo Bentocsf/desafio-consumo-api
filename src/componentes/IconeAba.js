@@ -1,5 +1,6 @@
 import { StyleSheet, Text } from 'react-native';
 
+// Mapeio os nomes das abas para símbolos simples, sem precisar instalar ícones.
 const simbolos = {
   moedas: '¤',
   favoritas: '☆',
@@ -8,6 +9,7 @@ const simbolos = {
 };
 
 export function IconeAba({ nome, cor, tamanho, selecionada }) {
+  // A estrela muda quando a aba de favoritos está selecionada.
   const simbolo = nome === 'favoritas' && selecionada
     ? simbolos.favoritasSelecionada
     : simbolos[nome];
@@ -19,6 +21,7 @@ export function IconeAba({ nome, cor, tamanho, selecionada }) {
   );
 }
 
+// Alinho o símbolo no espaço reservado pelo navegador.
 const estilos = StyleSheet.create({
   icone: {
     textAlign: 'center',
