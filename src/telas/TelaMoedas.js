@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListaMoedas } from '../componentes/ListaMoedas';
 import { AreaSegura } from '../componentes/AreaSegura';
@@ -10,7 +10,7 @@ export function TelaMoedas() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
 
-  const carregarMoedas = useCallback(async () => {
+  async function carregarMoedas() {
     setCarregando(true);
     setErro('');
 
@@ -23,11 +23,11 @@ export function TelaMoedas() {
     } finally {
       setCarregando(false);
     }
-  }, []);
+  }
 
   useEffect(() => {
     carregarMoedas();
-  }, [carregarMoedas]);
+  }, []);
 
   return (
     <AreaSegura>

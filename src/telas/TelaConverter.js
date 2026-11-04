@@ -6,8 +6,8 @@ import { cores } from '../estilos/cores';
 import { buscarMoedas, converterParMoedas, validarValorConversao } from '../servicos/servicoMoedas';
 
 const formatarValor = (valor) => valor.toLocaleString('pt-BR', {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+  minimumFractionDigits: 3,
+  maximumFractionDigits: 3,
 });
 
 export function TelaConverter() {
